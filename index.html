@@ -1,11 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Управление сущностями</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <script src="main.js"></script>
+<form id="plantForm">
+    <label for="name">Название:</label>
+    <input type="text" id="name" required>
+    
+    <!-- Другие поля формы в зависимости от выбора класса-наследника -->
+    
+    <select id="subclass">
+        <option value="Fern">Папоротник</option>
+        <option value="Spruce">Ель обыкновенная</option>
+    </select>
+    
+    <button type="submit">Сохранить</button>
+</form>
+
+<table id="plantTable">
+    <!-- Здесь будут отображаться данные из localstorage -->
+</table>
+
+<script src="script.js"></script>
 </body>
 </html>

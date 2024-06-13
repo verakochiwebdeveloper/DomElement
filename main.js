@@ -1,32 +1,43 @@
-function DomElement(selector, height, width, bg, fontSize) {
-    this.selector = selector;
-    this.height = height;
-    this.width = width;
-    this.bg = bg;
-    this.fontSize = fontSize;
+// Получаем форму и таблицу из DOM
+const plantForm = document.getElementById('plantForm');
+const plantTable = document.getElementById('plantTable');
 
-    this.createElement = function() {
-        let element;
-        if (this.selector.startsWith('.')) {
-            element = document.createElement('div');
-            element.classList.add(this.selector.slice(1));
-        } else if (this.selector.startsWith('#')) {
-            element = document.createElement('p');
-            element.id = this.selector.slice(1);
-        }
+// Массив для хранения объектов растений
+let plants = [];
 
-        element.style.cssText = 
-            height: ${this.height}px;
-            width: ${this.width}px;
-            background: ${this.bg};
-            font-size: ${this.fontSize}px;
-        ;
+// Обработчик события отправки формы
+plantForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    const name = document.getElementById('name').value;
+    const subclass = document.getElementById('subclass').value;
 
-        element.textContent = "Пример текста"; // Любой текст
+    let newPlant;
+    if (subclass === 'Fern') {
+        newPlant = new Fern(name, /* другие свойства */);
+    } else if (subclass === 'Spruce') {
+        newPlant = new Spruce(name, /* другие свойства */);
+    }
 
-        document.body.appendChild(element);
-    };
+    plants.push(newPlant);
+    localStorage.setItem('plantsData', JSON.stringify(plants));
+    
+    displayPlants();
+});
+
+// Функция отображения данных в таблице
+function displayPlants() {
+    plantTable.innerHTML = '';
+    
+    plants.forEach((plant, index) => {
+        const row = plantTable.insertRow();
+        // Заполнение ячеек таблицы данными из объекта plant
+        // Добавление кнопки "Удалить" с обработчиком события удаления объекта
+    });
 }
 
-const newElement = new DomElement('.block', 200, 200, 'lightblue', 16);
-newElement.createElement();
+// Инициализация данных при загрузке страницы
+if (localStorage.getItem('plantsData')) {
+    plants = JSON.parse(localStorage.getItem('plantsData'));
+    displayPlants();
+}
